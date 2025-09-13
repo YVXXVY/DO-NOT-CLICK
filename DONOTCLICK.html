@@ -4,127 +4,134 @@
 <meta charset="UTF-8">
 <title>Jump Scare Sequence</title>
 <style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-        color: white;
-    }
-    #jumpscareBtn {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px 40px;
-        font-size: 24px;
-        cursor: pointer;
-        border: none;
-        border-radius: 10px;
-        background-color: white;
-        color: black;
-        z-index: 1;
-    }
-    #warningText {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 32px;
-        display: none;
-        opacity: 0;
-        text-align: center;
-        transition: opacity 2s ease-in-out;
-        z-index: 1;
-    }
-    #jumpscareImage {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: none;
-        object-fit: cover;
-        z-index: 9999;
-    }
-    /* Twitch animation */
-    @keyframes twitch {
-        0% { transform: translate(0,0); }
-        10% { transform: translate(-10px,10px); }
-        20% { transform: translate(10px,-10px); }
-        30% { transform: translate(-10px,10px); }
-        40% { transform: translate(10px,-10px); }
-        50% { transform: translate(-5px,5px); }
-        60% { transform: translate(5px,-5px); }
-        70% { transform: translate(-5px,5px); }
-        80% { transform: translate(5px,-5px); }
-        90% { transform: translate(0,0); }
-        100% { transform: translate(0,0); }
-    }
-    #particles {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 0;
-    }
-    .particle {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background: white;
-        border-radius: 50%;
-        opacity: 0.8;
-        animation: fall linear;
-    }
-    @keyframes fall {
-        to { transform: translateY(100vh); }
-    }
-    #theEnd {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 80px;
-        font-weight: bold;
-        color: red;
-        display: none;
-        z-index: 2;
-    }
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+#jumpscareBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    z-index: 1;
+}
+#warningText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    display: none;
+    opacity: 0;
+    text-align: center;
+    transition: opacity 2s ease-in-out;
+    z-index: 1;
+}
+#jumpscareImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    object-fit: cover;
+    z-index: 9999;
+}
+@keyframes twitch {
+    0% { transform: translate(0,0); }
+    10% { transform: translate(-10px,10px); }
+    20% { transform: translate(10px,-10px); }
+    30% { transform: translate(-10px,10px); }
+    40% { transform: translate(10px,-10px); }
+    50% { transform: translate(-5px,5px); }
+    60% { transform: translate(5px,-5px); }
+    70% { transform: translate(-5px,5px); }
+    80% { transform: translate(5px,-5px); }
+    90% { transform: translate(0,0); }
+    100% { transform: translate(0,0); }
+}
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+.particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall linear;
+}
+@keyframes fall {
+    to { transform: translateY(100vh); }
+}
+#theEnd {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    font-weight: bold;
+    color: red;
+    display: none;
+    z-index: 2;
+}
 </style>
 </head>
 <body>
-<button id="jumpscareBtn">DO NOT CLICK ME! IM WARNING YOU...</button>
+
+<button id="jumpscareBtn">Click me if you dare!</button>
 <div id="warningText">i warned you - mohammad.</div>
 <img id="jumpscareImage" src="https://i.pinimg.com/736x/e6/92/33/e69233ad37fe6323b3d1e323d1794201.jpg" alt="Jump Scare">
 <div id="particles"></div>
 <div id="theEnd">THE END</div>
+<audio id="fnafSound" src="https://www.soundjay.com/horror/fnaf-scream.mp3"></audio> <!-- Replace with your FNAF sound -->
 
 <script>
 const button = document.getElementById('jumpscareBtn');
 const warningText = document.getElementById('warningText');
 const jumpscareImage = document.getElementById('jumpscareImage');
+const fnafSound = document.getElementById('fnafSound');
 const particlesContainer = document.getElementById('particles');
 const theEnd = document.getElementById('theEnd');
 
 button.addEventListener('click', () => {
     button.style.display = 'none';
 
-    // Show jump scare
+    // Play FNAF jump scare sound
+    fnafSound.currentTime = 0;
+    fnafSound.play();
+
+    // Show jump scare image with twitch
     jumpscareImage.style.display = 'block';
     jumpscareImage.style.animation = 'twitch 0.1s infinite';
 
-    // After 5s, hide image and show warning text
     setTimeout(() => {
+        // Hide jumpscare image after 5 seconds
         jumpscareImage.style.display = 'none';
         jumpscareImage.style.animation = '';
-        
+
+        // Show warning text fade in
         warningText.style.display = 'block';
         setTimeout(() => warningText.style.opacity = 1, 50);
 
@@ -134,15 +141,13 @@ button.addEventListener('click', () => {
             setTimeout(() => warningText.style.display = 'none', 2000);
         }, 2000);
 
-        // Start particles
+        // Start particles after warning text
         setTimeout(startParticles, 2000);
 
-        // Show "THE END" after 5 seconds of particles
-        setTimeout(() => {
-            theEnd.style.display = 'block';
-        }, 5000);
+        // Show "THE END" after 3 seconds of particles
+        setTimeout(() => theEnd.style.display = 'block', 5000);
 
-    }, 5000);
+    }, 5000); // Duration of jumpscare
 });
 
 // Particle generator
