@@ -105,7 +105,9 @@ html, body {
 <img id="jumpscareImage" src="https://i.pinimg.com/736x/e6/92/33/e69233ad37fe6323b3d1e323d1794201.jpg" alt="Jump Scare">
 <div id="particles"></div>
 <div id="theEnd">THE END</div>
-<audio id="fnafSound" src="https://www.soundjay.com/horror/fnaf-scream.mp3"></audio> <!-- Replace with your FNAF sound -->
+
+<!-- FNAF jump scare sound hosted on your GitHub Pages -->
+<audio id="fnafSound" src="https://yvxxvy.github.io/DO-NOT-CLICK/JUMPSCARE.mp3" preload="auto"></audio>
 
 <script>
 const button = document.getElementById('jumpscareBtn');
@@ -120,18 +122,18 @@ button.addEventListener('click', () => {
 
     // Play FNAF jump scare sound
     fnafSound.currentTime = 0;
-    fnafSound.play();
+    fnafSound.play().catch(e => console.log("Audio failed:", e));
 
     // Show jump scare image with twitch
     jumpscareImage.style.display = 'block';
     jumpscareImage.style.animation = 'twitch 0.1s infinite';
 
+    // After 5 seconds, hide image and continue sequence
     setTimeout(() => {
-        // Hide jumpscare image after 5 seconds
         jumpscareImage.style.display = 'none';
         jumpscareImage.style.animation = '';
 
-        // Show warning text fade in
+        // Show warning text
         warningText.style.display = 'block';
         setTimeout(() => warningText.style.opacity = 1, 50);
 
@@ -141,13 +143,13 @@ button.addEventListener('click', () => {
             setTimeout(() => warningText.style.display = 'none', 2000);
         }, 2000);
 
-        // Start particles after warning text
+        // Start falling particles after text fades
         setTimeout(startParticles, 2000);
 
         // Show "THE END" after 3 seconds of particles
         setTimeout(() => theEnd.style.display = 'block', 5000);
 
-    }, 5000); // Duration of jumpscare
+    }, 5000);
 });
 
 // Particle generator
@@ -162,9 +164,10 @@ function startParticles() {
         particle.style.opacity = Math.random();
         particle.style.animationDuration = 3 + Math.random() * 3 + 's';
         particlesContainer.appendChild(particle);
-        setTimeout(() => particle.remove(), 6000); // remove after falling
+        setTimeout(() => particle.remove(), 6000);
     }
 }
 </script>
+
 </body>
 </html>
